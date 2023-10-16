@@ -1,0 +1,95 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+
+        String[] parts = input.split(" ");
+        String operand1 = parts[0];
+        String operator = parts[1];
+        String operand2 = parts[2];
+
+        int num1, num2;
+        boolean isRoman = false;
+
+        try {
+            num1 = Integer.parseInt(operand1);
+            num2 = Integer.parseInt(operand2);
+        } catch (NumberFormatException e) {
+            num1 = convertRomanToArabic(operand1);
+            num2 = convertRomanToArabic(operand2);
+            isRoman = true;
+        }
+
+        int result;
+        switch (operator) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "*":
+                result = num1 * num2;
+                break;
+            case "/":
+                result = num1 / num2;
+                break;
+            default:
+                System.out.println("Неверный оператор");
+                return;
+        }
+
+        if (isRoman) {
+            System.out.println(convertArabicToRoman(result));
+        } else {
+            System.out.println(result);
+        }
+    }
+
+    private static int convertRomanToArabic(String roman) {
+        Map<Character, Integer> romanToArabic = new HashMap<>();
+        romanToArabic.put('I', 1);
+        romanToArabic.put('V', 5);
+        romanToArabic.put('X', 10);
+        romanToArabic.put('L', 50);
+        romanToArabic.put('C', 100);
+
+        int result = 0;
+        int prevValue = 0;
+
+        for (int i = roman.length() - 1; i >= 0; i--) {
+            int currValue = romanToArabic.get(roman.charAt(i));
+
+            if (currValue >= prevValue) {
+                result += currValue;
+            } else {
+                result -= currValue;
+            }
+
+            prevValue = currValue;
+        }
+
+        return result;
+    }
+
+    private static String convertArabicToRoman(int number) {
+        int[] arabicValues = {100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanSymbols = {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+        StringBuilder roman = new StringBuilder();
+
+        for (int i = 0; i < arabicValues.length; i++) {
+            while (number >= arabicValues[i]) {
+                roman.append(romanSymbols[i]);
+                number -= arabicValues[i];
+            }
+        }
+
+        return roman.toString();
+    }
+}
