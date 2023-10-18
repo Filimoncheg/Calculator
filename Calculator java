@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        String input = scanner.nextLine();
+        String input = sc.nextLine();
 
         String[] parts = input.split(" ");
         String operand1 = parts[0];
