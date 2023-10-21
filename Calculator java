@@ -3,12 +3,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Scanner sc = new Scanner(System.in);
 
         String input = sc.nextLine();
 
         String[] parts = input.split(" ");
+        if(parts.length!=3){
+            throw new Exception();
+        }
         String operand1 = parts[0];
         String operator = parts[1];
         String operand2 = parts[2];
@@ -23,6 +26,9 @@ public class Main {
             num1 = convertRomanToArabic(operand1);
             num2 = convertRomanToArabic(operand2);
             isRoman = true;
+        }
+        if(num1<1 || num1>10 || num2<1 || num2>10 ){
+            throw new Exception();
         }
 
         int result;
@@ -40,11 +46,11 @@ public class Main {
                 result = num1 / num2;
                 break;
             default:
-                System.out.println("Неверный оператор");
-                return;
+                throw new Exception();
         }
 
         if (isRoman) {
+            if (result<1) throw new Exception();
             System.out.println(convertArabicToRoman(result));
         } else {
             System.out.println(result);
@@ -58,7 +64,7 @@ public class Main {
         romanToArabic.put('X', 10);
         romanToArabic.put('L', 50);
         romanToArabic.put('C', 100);
-
+    
         int result = 0;
         int prevValue = 0;
 
