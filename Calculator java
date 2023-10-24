@@ -7,6 +7,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String input = sc.nextLine();
+        
+        calc(input);
+    }
+        
+        public static String calc(String input) throws Exception{
 
         String[] parts = input.split(" ");
         if(parts.length!=3){
@@ -55,6 +60,7 @@ public class Main {
         } else {
             System.out.println(result);
         }
+       return Integer.toString(result);
     }
 
     private static int convertRomanToArabic(String roman) {
